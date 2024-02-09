@@ -10,6 +10,7 @@ const Cards = () => {
   const [remaining, setRemaining] = useState(52);
   const [shuffle, setShuffle] = useState(0);
   const deckId = useRef();
+
   useEffect(() => {
     async function get_deckId() {
       const res = await axios.get(
@@ -18,7 +19,6 @@ const Cards = () => {
       deckId.current = res.data.deck_id;
     }
     get_deckId();
-    console.log(deckId);
   }, [shuffle]);
   const drawCard = async () => {
     const res = await axios.get(
@@ -26,7 +26,6 @@ const Cards = () => {
     );
 
     setCards(() => [...cardList, { ...res.data.cards[0], id: uuid() }]);
-    console.log(res.data.remaining);
     setRemaining(res.data.remaining);
   };
   const newShuffle = () => {
